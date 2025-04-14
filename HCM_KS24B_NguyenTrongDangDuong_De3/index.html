@@ -3,11 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quản lí sự kiện</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 <body>
+    <div class="container">
+        <div class="addEvent">
+            <h2>Quản lý sự kiện</h2>
+            <div class="addEventForm">
+                <label for="eventName">Tên sự kiện</label>
+                <input type="text" id="eventName" required>
+            </div>
+            <div class="addEventForm">
+                <label for="eventDate">Ngày tổ chức</label>
+                <input type="date" id="eventDate" required>
+            </div>
+            <div class="addEventForm">
+                <label for="eventLocation">Địa điểm</label>
+                <input type="text" id="eventLocation" required>
+            </div>
+            <div class="addEventForm">
+                <label for="eventOrganizer">Người tổ chức</label>
+                <input type="text" id="eventOrganizer" required>
+            </div>
+            <button id="addEventBtn">Thêm sự kiện</button>
+        </div>
+        <div class="showEvent">
+            <input type="text" id="searchEventName" placeholder="Tìm kiếm theo tên sự kiện...">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên sự kiện</th>
+                        <th>Ngày</th>
+                        <th>Địa điểm</th>
+                        <th>Người tổ chức</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="eventList">
+                    <!-- Danh sách sự kiện sẽ được thêm vào đây -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmModal" tabindex="-1" style="display: none;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Xác nhận</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body">
+              <p class="confirm-message">______</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+              <button type="button" class="btn btn-primary confirm-yes">Có</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
