@@ -1,3 +1,4 @@
+const events = []; // Mảng chứa các đối tượng sự kiện
 const eventName = document.getElementById("eventName");
 const eventDate = document.getElementById("eventDate");
 const eventLocation = document.getElementById("eventLocation");
@@ -19,7 +20,7 @@ function addEventRow(eventName, eventDate, eventLocation, eventOrganizer) {
         </td>
     `;
     eventList.appendChild(newRow);
-    
+
     attachEventListenersToRow(newRow);
 }
 
@@ -31,15 +32,34 @@ addEventBtn.addEventListener("click", () => {
 
     if (!validName || !validDate || !validLocation || !validOrganizer) return;
 
+    const newEvent = {
+        name: eventName.value,
+        date: eventDate.value,
+        location: eventLocation.value,
+        organizer: eventOrganizer.value,
+    };
+
+    events.push(newEvent);
+
     addEventRow(eventName.value, eventDate.value, eventLocation.value, eventOrganizer.value);
 
     [eventName, eventDate, eventLocation, eventOrganizer].forEach(input => input.value = "");
+    addEventBtn.textContent = "Thêm sự kiện"; 
 });
 
 function attachEventListenersToRow(row) {
     row.querySelector(".delete").addEventListener("click", () => {
         showConfirmModal("Bạn có chắc chắn muốn xóa sự kiện này không?").then((confirm) => {
-            if (confirm) eventList.removeChild(row);
+            if (confirm) {
+                const eventNameToDelete = row.children[0].textContent;
+                const eventIndex = events.findIndex(event => event.name === eventNameToDelete);
+
+                if (eventIndex !== -1) {
+                    events.splice(eventIndex, 1);
+                }
+
+                eventList.removeChild(row);
+            }
         });
     });
 
@@ -48,8 +68,17 @@ function attachEventListenersToRow(row) {
             if (confirm) {
                 const replaces = Array.from(row.children).slice(0, 4);
                 addEventBtn.textContent = "Sửa sự kiện";
+
+                const oldEventName = replaces[0].textContent;
+                const eventIndex = events.findIndex(event => event.name === oldEventName);
+
                 [eventName.value, eventDate.value, eventLocation.value, eventOrganizer.value] =
-                replaces.map(replace => replace.textContent);
+                    replaces.map(replace => replace.textContent);
+
+                if (eventIndex !== -1) {
+                    events.splice(eventIndex, 1);
+                }
+
                 eventList.removeChild(row);
             }
         });
@@ -69,7 +98,7 @@ function showConfirmModal(message) {
         const modalEl = document.getElementById("confirmModal");
         const modal = new bootstrap.Modal(modalEl);
         modalEl.querySelector(".confirm-message").textContent = message;
-        
+
         const yesBtn = modalEl.querySelector(".confirm-yes");
         const noBtn = modalEl.querySelector(".confirm-no");
 
@@ -108,3 +137,4 @@ function validateInput(input, message) {
     }
     return true;
 }
+console.log(events);
