@@ -1,4 +1,4 @@
-const events = []; // Mảng chứa các đối tượng sự kiện
+const events = [];
 const eventName = document.getElementById("eventName");
 const eventDate = document.getElementById("eventDate");
 const eventLocation = document.getElementById("eventLocation");
