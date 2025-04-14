@@ -71,24 +71,24 @@ function showConfirmModal(message) {
         modalEl.querySelector(".confirm-message").textContent = message;
         
         const yesBtn = modalEl.querySelector(".confirm-yes");
-        const noBtn = modalEl.querySelector(".btn-secondary");
+        const noBtn = modalEl.querySelector(".confirm-no");
 
-        const handleYes = () => {
+        const choiceYes = () => {
             resolve(true);
             modal.hide();
-            yesBtn.removeEventListener("click", handleYes);
-            noBtn.removeEventListener("click", handleNo);
+            yesBtn.removeEventListener("click", choiceYes);
+            noBtn.removeEventListener("click", choiceNo);
         };
 
-        const handleNo = () => {
+        const choiceNo = () => {
             resolve(false);
             modal.hide();
-            yesBtn.removeEventListener("click", handleYes);
-            noBtn.removeEventListener("click", handleNo);
+            yesBtn.removeEventListener("click", choiceYes);
+            noBtn.removeEventListener("click", choiceNo);
         };
 
-        yesBtn.addEventListener("click", handleYes);
-        noBtn.addEventListener("click", handleNo);
+        yesBtn.addEventListener("click", choiceYes);
+        noBtn.addEventListener("click", choiceNo);
 
         modal.show();
     });
